@@ -9,17 +9,23 @@ const getContacts = asyncHandler(async (req, res) => {
   res.status(200).json(contacts);
 });
 
-//@desc Create a contact
+//@desc Create New contact
 //@route POST /api/contacts
-//@access public
+//@access private
 const createContact = asyncHandler(async (req, res) => {
-  console.log("The request of the body is: ", req.body);
+  console.log("The request body is :", req.body);
   const { name, email, phone } = req.body;
   if (!name || !email || !phone) {
-    res.status(404);
-    throw new Error("All fields are mandatory !!");
+    res.status(400);
+    throw new Error("All fields are mandatory !");
   }
-  res.status(201).json({ message: "Creates a Contact" });
+  const contact = await Contact.create({
+    name,
+    email,
+    phone,
+  });
+
+  res.status(201).json(contact);
 });
 
 //@desc Get a contact
