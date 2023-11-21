@@ -10,7 +10,7 @@ router.post("/login", (req, res) => {
     res.json({message: "Login the user"});
 });
 
-router.post("/current", (req, res) => {
+router.get("/current", (req, res) => {
     res.json({message: "Curent user information"});
 });
 
